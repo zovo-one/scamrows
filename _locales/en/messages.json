@@ -1,0 +1,150 @@
+{
+  "extName": {
+    "message": "ScamRows",
+    "description": "Extension name."
+  },
+  "extDesc": {
+    "message": "Hides phishing and dust scam-token rows in token-transfer tables on Etherscan-family explorers. Runs locally.",
+    "description": "Extension description (single-purpose, CWS listing summary; keep <= 132 chars)."
+  },
+  "actionTitle": {
+    "message": "ScamRows",
+    "description": "Toolbar action tooltip title."
+  },
+  "pillHiddenCount": {
+    "message": "ScamRows hid $1 suspicious rows",
+    "description": "Pill text: count of rows hidden above one transfer table. $1 = number."
+  },
+  "pillShowingCount": {
+    "message": "Showing $1 suspicious rows",
+    "description": "Pill text while the table's hidden rows are revealed. $1 = number."
+  },
+  "pillShow": {
+    "message": "Show",
+    "description": "Pill toggle button: reveal hidden rows."
+  },
+  "pillHide": {
+    "message": "Hide",
+    "description": "Pill toggle button: re-hide revealed rows."
+  },
+  "pillToggleTitle": {
+    "message": "Reveal lasts until the page reloads. Pagination or a table refresh hides suspicious rows again.",
+    "description": "Tooltip on the pill toggle button."
+  },
+  "pillAskLine": {
+    "message": "Pro also hides dust and remembers your never-hide list.",
+    "description": "One-line big-clean upgrade ask shown once per session."
+  },
+  "pillAskUpgrade": {
+    "message": "Upgrade",
+    "description": "Big-clean ask: upgrade button."
+  },
+  "pillAskLater": {
+    "message": "Maybe later",
+    "description": "Big-clean ask: dismiss button."
+  },
+  "pillPeek": {
+    "message": "Pro would hide $1 more dust rows",
+    "description": "Pill Pro-peek line (free tier, real local count). $1 = number."
+  },
+  "pillReasonTooltip": {
+    "message": "Hidden: $1",
+    "description": "Tooltip on a revealed row explaining why it was hidden. $1 = reason label plus matched text."
+  },
+  "tokenBanner": {
+    "message": "Warning: this token matches known scam patterns ($1). ScamRows hides its transfer rows on address pages.",
+    "description": "Slim warning banner on token tracker pages. $1 = matched reason label."
+  },
+  "popSubPaused": {
+    "message": "ScamRows is off. No rows are hidden anywhere.",
+    "description": "Popup hero sub-line when the master switch is off."
+  },
+  "popSubLive": {
+    "message": "$1 suspicious rows hidden on this tab. Use the pill above a filtered table to reveal them.",
+    "description": "Popup hero sub-line when rows are hidden on the current tab. $1 = number."
+  },
+  "popNudgeDust": {
+    "message": "Pro hides zero-value and dust transfers automatically on every visit.",
+    "description": "Popup nudge copy retargeted to the dust Pro row."
+  },
+  "popNudgeBlocklist": {
+    "message": "Pro hides any contract you paste into your own blocklist.",
+    "description": "Popup nudge copy retargeted to the custom-blocklist Pro row."
+  },
+  "popNudgeNeverhide": {
+    "message": "Pro remembers the tokens you never want hidden, on every explorer.",
+    "description": "Popup nudge copy retargeted to the never-hide Pro row."
+  },
+  "popNudgeStats": {
+    "message": "Pro keeps a lifetime count of every row ScamRows has hidden.",
+    "description": "Popup nudge copy retargeted to the lifetime-stats Pro row."
+  },
+  "optDustSaved": {
+    "message": "Saved.",
+    "description": "Options dust-threshold status: save succeeded."
+  },
+  "optDustInvalid": {
+    "message": "Enter 0 or a positive amount.",
+    "description": "Options dust-threshold status: unparseable input."
+  },
+  "optDustSaveFailed": {
+    "message": "Could not save. Storage is unavailable.",
+    "description": "Options dust-threshold status: storage write failure."
+  },
+  "optBlocklistSavedCount": {
+    "message": "$1 addresses saved",
+    "description": "Options custom-blocklist status: entries persisted. $1 = number."
+  },
+  "optBlocklistSkipped": {
+    "message": ", $1 lines skipped",
+    "description": "Options custom-blocklist status suffix: rejected input lines. $1 = number."
+  },
+  "optBlocklistTruncated": {
+    "message": "; input was too long and got cut off",
+    "description": "Options custom-blocklist status suffix when paste exceeded the 64 KB bound."
+  },
+  "optBlocklistSaveFailed": {
+    "message": "Could not save. Storage is unavailable.",
+    "description": "Options custom-blocklist status: storage write failure."
+  },
+  "optNeverHideAdded": {
+    "message": "$1 added",
+    "description": "Options never-hide status: entries appended (bare address expands to all chains). $1 = number."
+  },
+  "optNeverHideDup": {
+    "message": "Already on the list.",
+    "description": "Options never-hide status: duplicate entry rejected."
+  },
+  "optNeverHideInvalid": {
+    "message": "Enter 0x followed by 40 hex characters, with an optional chain prefix such as eth:.",
+    "description": "Options never-hide status: malformed address rejected."
+  },
+  "optNeverHideBadChain": {
+    "message": "Unknown chain prefix. Use eth, base, arb, bsc, or polygon.",
+    "description": "Options never-hide status: unknown chain prefix rejected."
+  },
+  "optNeverHideCap": {
+    "message": "The list is full (500 entries). Remove one first.",
+    "description": "Options never-hide status: list cap reached."
+  },
+  "optNeverHideRemoved": {
+    "message": "Removed.",
+    "description": "Options never-hide status: entry removed."
+  },
+  "optNeverHideSaveFailed": {
+    "message": "Could not save. Storage is unavailable.",
+    "description": "Options never-hide status: storage write failure."
+  },
+  "optLicenseActivated": {
+    "message": "Pro activated. Enjoy the clean tables.",
+    "description": "Options license status: activation succeeded."
+  },
+  "optLicenseInvalid": {
+    "message": "That key is not valid. Check the letters and digits and try again.",
+    "description": "Options license status: key failed offline verification."
+  },
+  "optLicenseStorageError": {
+    "message": "Storage is unavailable. The key was not saved. Try again.",
+    "description": "Options license status: storage write failure during activation."
+  }
+}

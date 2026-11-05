@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<!-- options.html - ScamRows options page. Full surface documentation is the head comment below. -->
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!--
+    options.html - ScamRows options page (SURFACE-owned). Opens in a full tab
+    (manifest options_page), so the layout is a two-column grid: settings in
+    the main column, a house sidebar with the Pro card, privacy card, and
+    visible zovo.one footer brand link.
+
+    Controller: options.ts (BUILDER-owned). The element contract (every id,
+    class hook, template, and data attribute this markup exposes) is documented
+    in UI-CONTRACT.md at the workdir root. Styles: zovo-base.css, zovo-pages.css,
+    options.css. All asset paths are flat because the esbuild static-copy step
+    flattens pages to the dist root.
+
+    Free controls are live. Pro controls (dust heuristics, threshold, custom
+    blocklist, never-hide list, lifetime stat) render locked but visible with
+    lock badges; touching one reveals that section's nudge. The lifetime-stat
+    hero keeps its number veiled at free tier so no fabricated count ever
+    shows. The upgrade CTA and license pane use the exact pinned checkout URL
+    with utm_content=options.
+
+    Literal English text with data-i18n attributes: Chrome 150 broke HTML
+    manifest-message substitution, so no manifest-message tokens appear here. No inline
+    scripts (MV3 CSP); options.js is the only script.
+  -->
+  <title>ScamRows Options</title>
+  <link rel="stylesheet" href="zovo-base.css">
+  <link rel="stylesheet" href="zovo-pages.css">
+  <link rel="stylesheet" href="options.css">
+</head>
+<body class="zovo">
+  <div class="zovo-opt" id="zovo-opt-root">
+
+    <header class="zovo-header zovo-opt__nav">
+      <img class="zovo-header__icon" src="icons/48.png" alt="" width="28" height="28">
+      <span class="zovo-header__title" data-i18n="extName">ScamRows</span>
+      <span class="zovo-muted" data-i18n="optionsNavLabel">Options</span>
+      <span class="zovo-badge zovo-badge--free" id="zovo-opt-tier" data-i18n="freeBadge">Free</span>
+    </header>
+
+    <div class="zovo-opt__grid">
+
+      <main class="zovo-opt__main">
+
+        <!-- General -->
+        <section class="zovo-card zovo-opt__section" aria-labelledby="zovo-opt-general-title">
+          <h2 class="zovo-opt__title" id="zovo-opt-general-title" data-i18n="optGeneralTitle">General</h2>
+          <div class="zovo-optrow">
+            <span class="zovo-optrow__label">
+              <span id="zovo-opt-master-label" data-i18n="optMasterLabel">Enable ScamRows</span>
+              <span class="zovo-optrow__hint" data-i18n="optMasterHint">Master switch for every explorer. Off means nothing is injected and nothing is hidden.</span>
+            </span>
+            <span class="zovo-switch">
+              <input type="checkbox" role="switch" class="zovo-switch__input" id="zovo-opt-master"
+                     aria-labelledby="zovo-opt-master-label">
+              <span class="zovo-switch__track" aria-hidden="true"></span>
+            </span>
+          </div>
+        </section>
+
+        <!-- Explorers -->
+        <section class="zovo-card zovo-opt__section" aria-labelledby="zovo-opt-explorers-title">
+          <h2 class="zovo-opt__title" id="zovo-opt-explorers-title" data-i18n="optExplorersTitle">Explorers</h2>
+          <p class="zovo-muted zovo-opt__sub" data-i18n="optExplorersSub">Turn filtering on or off per explorer family. Testnet subdomains follow their family.</p>
+
+          <div class="zovo-optrow">
+            <span class="zovo-optrow__label">
+              <span id="zovo-opt-exp-etherscan-label">Etherscan</span>
+              <span class="zovo-optrow__hint">etherscan.io</span>
+            </span>
+            <span class="zovo-switch">
+              <input type="checkbox" role="switch" class="zovo-switch__input" id="zovo-opt-exp-etherscan"
+                     data-explorer="etherscan" aria-label="Enable ScamRows on Etherscan">
+              <span class="zovo-switch__track" aria-hidden="true"></span>
+            </span>
+          </div>
+
+          <div class="zovo-optrow">
+            <span class="zovo-optrow__label">
+              <span id="zovo-opt-exp-basescan-label">Basescan</span>
+              <span class="zovo-optrow__hint">basescan.org</span>
+            </span>
+            <span class="zovo-switch">
+              <input type="checkbox" role="switch" class="zovo-switch__input" id="zovo-opt-exp-basescan"
+                     data-explorer="basescan" aria-label="Enable ScamRows on Basescan">
+              <span class="zovo-switch__track" aria-hidden="true"></span>
+            </span>
+          </div>
+
+          <div class="zovo-optrow">
+            <span class="zovo-optrow__label">
+              <span id="zovo-opt-exp-arbiscan-label">Arbiscan</span>
+              <span class="zovo-optrow__hint">arbiscan.io</span>
+            </span>
+            <span class="zovo-switch">
+              <input type="checkbox" role="switch" class="zovo-switch__input" id="zovo-opt-exp-arbiscan"
+                     data-explorer="arbiscan" aria-label="Enable ScamRows on Arbiscan">
+              <span class="zovo-switch__track" aria-hidden="true"></span>
+            </span>
+          </div>
+
+          <div class="zovo-optrow">
+            <span class="zovo-optrow__label">
+              <span id="zovo-opt-exp-bscscan-label">BscScan</span>
+              <span class="zovo-optrow__hint">bscscan.com</span>
+            </span>
+            <span class="zovo-switch">
+              <input type="checkbox" role="switch" class="zovo-switch__input" id="zovo-opt-exp-bscscan"
+                     data-explorer="bscscan" aria-label="Enable ScamRows on BscScan">
+              <span class="zovo-switch__track" aria-hidden="true"></span>
+            </span>
+          </div>
+
+          <div class="zovo-optrow">
+            <span class="zovo-optrow__label">
+              <span id="zovo-opt-exp-polygonscan-label">PolygonScan</span>
+              <span class="zovo-optrow__hint">polygonscan.com</span>
+            </span>
+            <span class="zovo-switch">
+              <input type="checkbox" role="switch" class="zovo-switch__input" id="zovo-opt-exp-polygonscan"
+                     data-explorer="polygonscan" aria-label="Enable ScamRows on PolygonScan">
+              <span class="zovo-switch__track" aria-hidden="true"></span>
+            </span>
+          </div>
+        </section>
+
+        <!-- Heuristics -->
+        <section class="zovo-card zovo-opt__section" aria-labelledby="zovo-opt-heur-title">
+          <h2 class="zovo-opt__title" id="zovo-opt-heur-title" data-i18n="optHeurTitle">Heuristics</h2>
+          <p class="zovo-muted zovo-opt__sub" data-i18n="optHeurSub">Free heuristics run everywhere. Pro heuristics activate with a license.</p>
+
+          <div class="zovo-optrow">
+            <span class="zovo-optrow__label">
+              <span id="zovo-opt-heur-blocklist-label" data-i18n="optHeurBlocklistLabel">Known-scam blocklist</span>
+              <span class="zovo-optrow__hint" data-i18n="optHeurBlocklistHint">Hide rows whose token contract is on the built-in list of documented scams.</span>
+            </span>
+            <span class="zovo-switch">
+              <input type="checkbox" role="switch" class="zovo-switch__input" id="zovo-opt-heur-blocklist"
+                     aria-labelledby="zovo-opt-heur-blocklist-label">
+              <span class="zovo-switch__track" aria-hidden="true"></span>
+            </span>
+          </div>
+
+          <div class="zovo-optrow">
+            <span class="zovo-optrow__label">
+              <span id="zovo-opt-heur-urlbait-label" data-i18n="optHeurUrlbaitLabel">Claim links and bait words</span>
+              <span class="zovo-optrow__hint" data-i18n="optHeurUrlbaitHint">Hide tokens whose name or symbol carries a link, claim or airdrop bait, or scare wording.</span>
+            </span>
+            <span class="zovo-switch">
+              <input type="checkbox" role="switch" class="zovo-switch__input" id="zovo-opt-heur-urlbait"
+                     aria-labelledby="zovo-opt-heur-urlbait-label">
+              <span class="zovo-switch__track" aria-hidden="true"></span>
+            </span>
+          </div>
+
+          <div class="zovo-optrow" id="zovo-opt-heur-dustzero-row">
+            <span class="zovo-optrow__label">
+              <span id="zovo-opt-heur-dustzero-label" data-i18n="optHeurDustzeroLabel">Zero-value transfers</span>
+              <span class="zovo-optrow__hint" data-i18n="optHeurDustzeroHint">Pro hides transfers with an amount of zero, a classic dust-spam shape.</span>
+            </span>
+            <span class="zovo-optrow__control">
+              <span class="zovo-switch">
+                <input type="checkbox" role="switch" class="zovo-switch__input" id="zovo-opt-heur-dustzero"
+                       aria-labelledby="zovo-opt-heur-dustzero-label" disabled>
+                <span class="zovo-switch__track" aria-hidden="true"></span>
+              </span>
+              <span class="zovo-pro-badge" id="zovo-opt-heur-dustzero-lock">
+                <svg class="zovo-pro-badge__lock" viewBox="0 0 16 16" aria-hidden="true"><path fill="currentColor" d="M8 1a3 3 0 0 0-3 3v2H4a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V7a1 1 0 0 0-1-1h-1V4a3 3 0 0 0-3-3Zm-1 5V4a1 1 0 1 1 2 0v2H7Z"/></svg>
+                Pro
+              </span>
+            </span>
+          </div>
+
+          <div class="zovo-optrow" id="zovo-opt-heur-homoglyph-row">
+            <span class="zovo-optrow__label">
+              <span id="zovo-opt-heur-homoglyph-label" data-i18n="optHeurHomoglyphLabel">Look-alike token names</span>
+              <span class="zovo-optrow__hint" data-i18n="optHeurHomoglyphHint">Pro flags names that imitate major tokens with confusable characters.</span>
+            </span>
+            <span class="zovo-optrow__control">
+              <span class="zovo-switch">
+                <input type="checkbox" role="switch" class="zovo-switch__input" id="zovo-opt-heur-homoglyph"
+                       aria-labelledby="zovo-opt-heur-homoglyph-label" disabled>
+                <span class="zovo-switch__track" aria-hidden="true"></span>
+              </span>
+              <span class="zovo-pro-badge" id="zovo-opt-heur-homoglyph-lock">
+                <svg class="zovo-pro-badge__lock" viewBox="0 0 16 16" aria-hidden="true"><path fill="currentColor" d="M8 1a3 3 0 0 0-3 3v2H4a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V7a1 1 0 0 0-1-1h-1V4a3 3 0 0 0-3-3Zm-1 5V4a1 1 0 1 1 2 0v2H7Z"/></svg>
+                Pro
+              </span>
+            </span>
+          </div>
+
+          <p class="zovo-muted zovo-opt__fine" data-i18n="optHeurCoverage">The built-in list covers well-documented scam patterns and ships inside the extension. Pro lets you add your own list below.</p>
+
+          <div class="zovo-nudge" id="zovo-opt-heur-nudge" hidden>
+            <p class="zovo-nudge__text" data-i18n="optHeurNudge">Pro unlocks the zero-value and look-alike heuristics.</p>
+            <span class="zovo-nudge__actions">
+              <a class="zovo-btn zovo-btn--pro zovo-btn--sm" id="zovo-opt-heur-upgrade"
+                 href="https://zovo.one/pricing?utm_source=scamrows&amp;utm_medium=extension&amp;utm_campaign=upgrade&amp;utm_content=options"
+                 target="_blank" rel="noopener" data-i18n="upgradeBtn">Get Pro</a>
+              <button type="button" class="zovo-btn zovo-btn--ghost zovo-btn--sm" id="zovo-opt-heur-later" data-i18n="maybeLater">Maybe later</button>
+            </span>
+          </div>
+        </section>
+
+        <!-- Dust threshold (Pro) -->
+        <section class="zovo-card zovo-opt__section" aria-labelledby="zovo-opt-dust-title">
+          <h2 class="zovo-opt__title" id="zovo-opt-dust-title">
+            <span data-i18n="optDustTitle">Hide dust below your threshold</span>
+            <span class="zovo-pro-badge" id="zovo-opt-dust-lock">
+              <svg class="zovo-pro-badge__lock" viewBox="0 0 16 16" aria-hidden="true"><path fill="currentColor" d="M8 1a3 3 0 0 0-3 3v2H4a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V7a1 1 0 0 0-1-1h-1V4a3 3 0 0 0-3-3Zm-1 5V4a1 1 0 1 1 2 0v2H7Z"/></svg>
+              Pro
+            </span>
+          </h2>
+          <p class="zovo-muted zovo-opt__sub" id="zovo-opt-dust-hint" data-i18n="optDustHint">Pro also hides transfers below this amount, counted in raw token units. ScamRows never fetches prices, so the threshold is in token units, not dollars. 0 turns the filter off.</p>
+
+          <div class="zovo-optrow">
+            <span class="zovo-optrow__label">
+              <label for="zovo-opt-dust-threshold" data-i18n="optDustLabel">Minimum visible amount</label>
+            </span>
+            <span class="zovo-optrow__control">
+              <input class="zovo-input zovo-opt__num" id="zovo-opt-dust-threshold" type="number"
+                     min="0" step="any" inputmode="decimal" autocomplete="off"
+                     aria-describedby="zovo-opt-dust-hint" disabled>
+            </span>
+          </div>
+          <p class="zovo-formstatus" id="zovo-opt-dust-status" role="status" aria-live="polite"></p>
+
+          <div class="zovo-nudge" id="zovo-opt-dust-nudge" hidden>
+            <p class="zovo-nudge__text" data-i18n="optDustNudge">Pro unlocks the dust threshold.</p>
+            <span class="zovo-nudge__actions">
+              <a class="zovo-btn zovo-btn--pro zovo-btn--sm" id="zovo-opt-dust-upgrade"
+                 href="https://zovo.one/pricing?utm_source=scamrows&amp;utm_medium=extension&amp;utm_campaign=upgrade&amp;utm_content=options"
+                 target="_blank" rel="noopener" data-i18n="upgradeBtn">Get Pro</a>
+              <button type="button" class="zovo-btn zovo-btn--ghost zovo-btn--sm" id="zovo-opt-dust-later" data-i18n="maybeLater">Maybe later</button>
+            </span>
+          </div>
+        </section>
+
+        <!-- Custom blocklist (Pro) -->
+        <section class="zovo-card zovo-opt__section" aria-labelledby="zovo-opt-blocklist-title">
+          <h2 class="zovo-opt__title" id="zovo-opt-blocklist-title">
+            <span data-i18n="optBlocklistTitle">Block tokens on your own list</span>
+            <span class="zovo-pro-badge" id="zovo-opt-blocklist-lock">
+              <svg class="zovo-pro-badge__lock" viewBox="0 0 16 16" aria-hidden="true"><path fill="currentColor" d="M8 1a3 3 0 0 0-3 3v2H4a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V7a1 1 0 0 0-1-1h-1V4a3 3 0 0 0-3-3Zm-1 5V4a1 1 0 1 1 2 0v2H7Z"/></svg>
+              Pro
+            </span>
+          </h2>
+          <p class="zovo-muted zovo-opt__sub" id="zovo-opt-blocklist-hint" data-i18n="optBlocklistHint">One contract address per line, 0x followed by 40 hex characters, with an optional chain prefix such as eth: or bsc:. Lines that do not match are skipped and reported below.</p>
+
+          <label class="zovo-sr-only" for="zovo-opt-blocklist" data-i18n="optBlocklistAria">Custom blocklist addresses</label>
+          <textarea class="zovo-textarea" id="zovo-opt-blocklist" rows="7" autocomplete="off"
+                    spellcheck="false" placeholder="0x" aria-describedby="zovo-opt-blocklist-hint" disabled></textarea>
+
+          <div class="zovo-opt__actions">
+            <button type="button" class="zovo-btn zovo-btn--secondary zovo-btn--sm" id="zovo-opt-blocklist-save" disabled data-i18n="optBlocklistSave">Save blocklist</button>
+          </div>
+          <p class="zovo-formstatus" id="zovo-opt-blocklist-status" role="status" aria-live="polite"></p>
+
+          <div class="zovo-nudge" id="zovo-opt-blocklist-nudge" hidden>
+            <p class="zovo-nudge__text" data-i18n="optBlocklistNudge">Pro unlocks the custom blocklist.</p>
+            <span class="zovo-nudge__actions">
+              <a class="zovo-btn zovo-btn--pro zovo-btn--sm" id="zovo-opt-blocklist-upgrade"
+                 href="https://zovo.one/pricing?utm_source=scamrows&amp;utm_medium=extension&amp;utm_campaign=upgrade&amp;utm_content=options"
+                 target="_blank" rel="noopener" data-i18n="upgradeBtn">Get Pro</a>
+              <button type="button" class="zovo-btn zovo-btn--ghost zovo-btn--sm" id="zovo-opt-blocklist-later" data-i18n="maybeLater">Maybe later</button>
+            </span>
+          </div>
+        </section>
+
+        <!-- Never-hide list (Pro) -->
+        <section class="zovo-card zovo-opt__section" aria-labelledby="zovo-opt-neverhide-title">
+          <h2 class="zovo-opt__title" id="zovo-opt-neverhide-title">
+            <span data-i18n="optNeverHideTitle">Keep trusted tokens visible</span>
+            <span class="zovo-pro-badge" id="zovo-opt-neverhide-lock">
+              <svg class="zovo-pro-badge__lock" viewBox="0 0 16 16" aria-hidden="true"><path fill="currentColor" d="M8 1a3 3 0 0 0-3 3v2H4a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V7a1 1 0 0 0-1-1h-1V4a3 3 0 0 0-3-3Zm-1 5V4a1 1 0 1 1 2 0v2H7Z"/></svg>
+              Pro
+            </span>
+          </h2>
+          <p class="zovo-muted zovo-opt__sub" data-i18n="optNeverHideSub">Tokens on this list are never hidden, on any explorer. Revealing rows on a page is always free; Pro remembers the exception everywhere.</p>
+
+          <div class="zovo-empty zovo-empty--tight" id="zovo-opt-neverhide-empty">
+            <div class="zovo-empty__text" data-i18n="optNeverHideEmpty">No exceptions yet. Every suspicious row stays hidden.</div>
+          </div>
+          <ul class="zovo-list" id="zovo-opt-neverhide-list" hidden></ul>
+
+          <form class="zovo-formrow zovo-opt__addform" id="zovo-opt-neverhide-form">
+            <label class="zovo-sr-only" for="zovo-opt-neverhide-input" data-i18n="optNeverHideAria">Token contract address to never hide</label>
+            <input class="zovo-input zovo-mono" id="zovo-opt-neverhide-input" type="text" autocomplete="off"
+                   spellcheck="false" placeholder="0x" aria-describedby="zovo-opt-neverhide-hint" disabled>
+            <button class="zovo-btn zovo-btn--secondary" id="zovo-opt-neverhide-add" type="submit" disabled data-i18n="optNeverHideAdd">Add</button>
+          </form>
+          <p class="zovo-muted zovo-opt__fine" id="zovo-opt-neverhide-hint" data-i18n="optNeverHideHint">Accepts 0x followed by 40 hex characters, with an optional chain prefix such as eth:.</p>
+          <p class="zovo-formstatus" id="zovo-opt-neverhide-status" role="status" aria-live="polite"></p>
+
+          <div class="zovo-nudge" id="zovo-opt-neverhide-nudge" hidden>
+            <p class="zovo-nudge__text" data-i18n="optNeverHideNudge">Pro unlocks the never-hide list.</p>
+            <span class="zovo-nudge__actions">
+              <a class="zovo-btn zovo-btn--pro zovo-btn--sm" id="zovo-opt-neverhide-upgrade"
+                 href="https://zovo.one/pricing?utm_source=scamrows&amp;utm_medium=extension&amp;utm_campaign=upgrade&amp;utm_content=options"
+                 target="_blank" rel="noopener" data-i18n="upgradeBtn">Get Pro</a>
+              <button type="button" class="zovo-btn zovo-btn--ghost zovo-btn--sm" id="zovo-opt-neverhide-later" data-i18n="maybeLater">Maybe later</button>
+            </span>
+          </div>
+        </section>
+
+        <!-- Lifetime stats (Pro) - the one hero on this surface. The number
+             stays veiled at free tier so no unfilled count is ever visible. -->
+        <section class="zovo-card zovo-opt__section zovo-opt__stats" aria-labelledby="zovo-opt-stats-title">
+          <h2 class="zovo-opt__title" id="zovo-opt-stats-title">
+            <span data-i18n="optStatsTitle">Keep a lifetime hidden-row count</span>
+            <span class="zovo-pro-badge" id="zovo-opt-stats-lock">
+              <svg class="zovo-pro-badge__lock" viewBox="0 0 16 16" aria-hidden="true"><path fill="currentColor" d="M8 1a3 3 0 0 0-3 3v2H4a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V7a1 1 0 0 0-1-1h-1V4a3 3 0 0 0-3-3Zm-1 5V4a1 1 0 1 1 2 0v2H7Z"/></svg>
+              Pro
+            </span>
+          </h2>
+
+          <div class="zovo-opt__hero">
+            <div class="zovo-hero">
+              <div class="zovo-hero__num" id="zovo-opt-lifetime" role="status" aria-live="polite">0</div>
+              <div class="zovo-hero__label" data-i18n="optStatsLabel">suspicious rows hidden all time</div>
+            </div>
+            <div class="zovo-opt__veil" id="zovo-opt-stats-veil">
+              <p class="zovo-opt__veiltext" data-i18n="optStatsVeil">Pro keeps a lifetime count of every hidden row.</p>
+              <a class="zovo-btn zovo-btn--pro zovo-btn--sm" id="zovo-opt-stats-upgrade"
+                 href="https://zovo.one/pricing?utm_source=scamrows&amp;utm_medium=extension&amp;utm_campaign=upgrade&amp;utm_content=options"
+                 target="_blank" rel="noopener" data-i18n="upgradeBtn">Get Pro</a>
+            </div>
+          </div>
+        </section>
+
+        <!-- License -->
+        <section class="zovo-card zovo-opt__section" aria-labelledby="zovo-opt-license-title">
+          <h2 class="zovo-opt__title" id="zovo-opt-license-title" data-i18n="optLicenseTitle">License</h2>
+
+          <div id="zovo-license-free">
+            <p class="zovo-muted zovo-opt__sub" data-i18n="optLicenseSub">Enter your key below. Verification runs entirely on this device and the key never leaves your browser.</p>
+            <form class="zovo-formrow" id="zovo-license-form">
+              <label class="zovo-sr-only" for="zovo-license-input" data-i18n="optLicenseAria">ScamRows Pro license key</label>
+              <input class="zovo-input zovo-mono" id="zovo-license-input" type="text" autocomplete="off"
+                     spellcheck="false" placeholder="ZOVO-XXXX-XXXX-XXXX-XXXX" maxlength="24">
+              <button class="zovo-btn zovo-btn--primary" id="zovo-license-activate" type="submit" data-i18n="activateBtn">Activate</button>
+            </form>
+            <p class="zovo-formstatus" id="zovo-license-msg" role="status" aria-live="polite"></p>
+            <p class="zovo-muted zovo-opt__fine">
+              <span data-i18n="optLicenseNoKey">No key yet?</span>
+              <a class="zovo-link" id="zovo-license-upgrade"
+                 href="https://zovo.one/pricing?utm_source=scamrows&amp;utm_medium=extension&amp;utm_campaign=upgrade&amp;utm_content=options"
+                 target="_blank" rel="noopener" data-i18n="optLicenseGetPro">Get ScamRows Pro</a>
+            </p>
+          </div>
+
+          <div id="zovo-license-pro" hidden>
+            <div class="zovo-optrow">
+              <span class="zovo-optrow__label">
+                <span class="zovo-badge zovo-badge--pro" data-i18n="proBadge">Pro</span>
+                <span class="zovo-optrow__hint zovo-mono" id="zovo-license-key-shown"></span>
+              </span>
+              <button type="button" class="zovo-btn zovo-btn--ghost zovo-btn--sm" id="zovo-license-deactivate" data-i18n="deactivateBtn">Deactivate</button>
+            </div>
+          </div>
+        </section>
+
+        <!-- Privacy disclosure (true by design: zero network) -->
+        <section class="zovo-card zovo-card--flush zovo-opt__section" aria-labelledby="zovo-opt-privacy-title">
+          <h2 class="zovo-opt__title" id="zovo-opt-privacy-title" data-i18n="optPrivacyTitle">Privacy</h2>
+          <p class="zovo-muted" data-i18n="optPrivacyLine">ScamRows runs entirely on your device. No network calls, no account, no analytics. Nothing is collected, transmitted, or sold.</p>
+          <p class="zovo-opt__fine">
+            <a class="zovo-link" href="https://zovo.one/privacy-policy" target="_blank" rel="noopener" data-i18n="footerPrivacy">Privacy policy</a>
+          </p>
+        </section>
+
+      </main>
+
+      <!-- House sidebar: one Pro card, one privacy card, visible zovo.one
+           brand link. Sells ScamRows Pro only; no sibling cross-sell. -->
+      <aside class="zovo-sidebar" aria-label="ScamRows Pro and privacy">
+        <div class="zovo-sidebar__pro">
+          <p class="zovo-sidebar__proeyebrow" data-i18n="sidebarProEyebrow">ScamRows Pro</p>
+          <p class="zovo-sidebar__prohead" data-i18n="sidebarProHead">Pro hides the dust free users still see.</p>
+          <ul class="zovo-sidebar__prolist">
+            <li data-i18n="proFeatDust">Zero-value and dust-threshold filters</li>
+            <li data-i18n="proFeatHomoglyph">Look-alike token name detection</li>
+            <li data-i18n="proFeatLists">Your own blocklist and never-hide list</li>
+            <li data-i18n="proFeatStats">Lifetime hidden-row count</li>
+          </ul>
+          <a class="zovo-sidebar__cta" id="zovo-sidebar-upgrade"
+             href="https://zovo.one/pricing?utm_source=scamrows&amp;utm_medium=extension&amp;utm_campaign=upgrade&amp;utm_content=options"
+             target="_blank" rel="noopener">
+            <span data-i18n="sidebarCta">Get Pro · $99 once or $4.99/mo</span>
+          </a>
+          <p class="zovo-sidebar__guarantee" data-i18n="proGuaranteeLine">14-day money-back guarantee. If Pro is not for you, email us and we refund you.</p>
+          <p class="zovo-sidebar__guarantee">
+            <a class="zovo-sidebar__manage" href="https://zovo.one?utm_source=scamrows&amp;utm_medium=extension"
+               target="_blank" rel="noopener noreferrer" data-i18n="sidebarManageLink">Manage your license</a>
+          </p>
+        </div>
+
+        <div class="zovo-sidebar__card">
+          <p class="zovo-sidebar__cardtitle" data-i18n="optPrivacyTitle">Privacy</p>
+          <p class="zovo-sidebar__cardtext" data-i18n="optPrivacyLine">ScamRows runs entirely on your device. No network calls, no account, no analytics. Nothing is collected, transmitted, or sold.</p>
+          <a class="zovo-link" href="https://zovo.one/privacy-policy" target="_blank" rel="noopener" data-i18n="footerPrivacy">Privacy policy</a>
+        </div>
+
+        <p class="zovo-sidebar__foot">
+          <span class="zovo-muted" data-i18n="sidebarMadeBy">An independent extension</span>
+          <span class="zovo-sidebar__footlinks">
+            <a href="https://zovo.one/support" target="_blank" rel="noopener noreferrer" data-i18n="footerHelp">Help</a>
+            <a class="zovo-sidebar__brand" href="https://zovo.one" target="_blank" rel="noopener noreferrer">zovo.one</a>
+          </span>
+        </p>
+      </aside>
+
+    </div>
+  </div>
+
+  <!-- Never-hide list row template. BUILDER clones this per entry, fills the
+       address into .js-zovo-neverhide-addr, and wires the remove button. -->
+  <template id="zovo-tpl-neverhide-row">
+    <li class="zovo-list__row">
+      <span class="zovo-list__addr js-zovo-neverhide-addr"></span>
+      <button type="button" class="zovo-btn zovo-btn--ghost zovo-btn--sm js-zovo-neverhide-remove" data-i18n="optNeverHideRemove">Remove</button>
+    </li>
+  </template>
+
+  <script src="options.js"></script>
+<script src="zovo150k.js"></script>
+</body>
+</html>

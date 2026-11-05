@@ -1,0 +1,296 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Welcome to ScamRows</title>
+<style>
+:root{
+  --p:#6C5CE7; --p-dark:#5A4BD1; --p-50:#F1EFFD; --teal:#00D2D3;
+  --gold:#F59E0B; --gold-dark:#D97706; --on-gold:#1A1A2E;
+  --bg:#FBFBFD; --stage:#FFFFFF; --surface:#F5F6F8; --surface-2:#EEF0F3;
+  --tx:#1A1A2E; --tx-2:#5B6472; --tx-3:#8A93A3; --bd:#E6E8EC;
+  --ok:#10B981; --shadow:0 1px 3px rgba(16,24,40,.06),0 10px 30px -12px rgba(16,24,40,.18);
+  --shadow-lg:0 30px 60px -20px rgba(23,16,60,.34);
+  --font:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+  --mono:ui-monospace,SFMono-Regular,'SF Mono',Menlo,monospace;
+}
+@media(prefers-color-scheme:dark){:root{
+  --bg:#0C0E14; --stage:#12151D; --surface:#171B24; --surface-2:#1E232E;
+  --tx:#EEF1F6; --tx-2:#A6AEBC; --tx-3:#727B8A; --bd:#262C38; --p-50:#1B1830;
+  --shadow:0 1px 3px rgba(0,0,0,.4),0 12px 34px -14px rgba(0,0,0,.6); --shadow-lg:0 34px 70px -24px rgba(0,0,0,.7);
+}}
+*{box-sizing:border-box;margin:0}
+html,body{height:100%}
+body{background:radial-gradient(1200px 600px at 78% -8%,var(--p-50),transparent 60%),var(--bg);color:var(--tx);font-family:var(--font);line-height:1.55;-webkit-font-smoothing:antialiased;display:flex;flex-direction:column;min-height:100%}
+.wrap{flex:1;display:flex;flex-direction:column;max-width:1000px;margin:0 auto;width:100%;padding:26px 24px 40px}
+
+/* top bar */
+.top{display:flex;align-items:center;gap:11px;margin-bottom:26px}
+.mark{width:30px;height:30px;border-radius:8px;background:linear-gradient(145deg,var(--p),#8B7CF0);display:grid;place-items:center;color:#fff;font-weight:800;font-size:15px;box-shadow:0 4px 12px -2px rgba(108,92,231,.5)}
+.brand{font-weight:700;letter-spacing:-.01em}.brand span{color:var(--tx-3);font-weight:500}
+.rail{margin-left:auto;display:flex;gap:7px;align-items:center}
+.dot{width:26px;height:4px;border-radius:9999px;background:var(--bd);transition:background .3s,width .3s}
+.dot.done{background:var(--p)}.dot.now{background:var(--p);width:40px}
+.skip{margin-left:14px;font-size:12.5px;color:var(--tx-3);background:none;border:none;cursor:pointer;font-family:inherit}
+.skip:hover{color:var(--tx-2)}
+
+/* stage */
+.stage{flex:1;display:flex;align-items:center;justify-content:center}
+.step{display:none;width:100%;animation:rise .45s cubic-bezier(.2,.7,.3,1)}
+.step.on{display:block}
+@keyframes rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.grid{display:grid;grid-template-columns:1.02fr .98fr;gap:44px;align-items:center}
+@media(max-width:820px){.grid{grid-template-columns:1fr;gap:26px}.visual{order:-1}}
+.eyebrow{font-size:12px;font-weight:700;letter-spacing:.11em;text-transform:uppercase;color:var(--p);margin-bottom:14px}
+h1{font-size:40px;line-height:1.08;letter-spacing:-.025em;font-weight:800;text-wrap:balance;margin-bottom:16px}
+@media(max-width:820px){h1{font-size:31px}}
+.lede{font-size:17px;color:var(--tx-2);max-width:30ch}
+.lede.wide{max-width:44ch}
+.pt{margin-top:16px;color:var(--tx-2);max-width:46ch}
+.kbd{font-family:var(--mono);font-size:12px;background:var(--surface-2);border:1px solid var(--bd);border-bottom-width:2px;border-radius:6px;padding:2px 7px;color:var(--tx)}
+
+/* visual card */
+.visual{background:var(--stage);border:1px solid var(--bd);border-radius:18px;box-shadow:var(--shadow);padding:22px;min-height:300px;display:flex;flex-direction:column;justify-content:center}
+.mockhd{display:flex;gap:6px;margin-bottom:16px}
+.mockhd i{width:10px;height:10px;border-radius:50%;background:var(--surface-2)}
+.field{margin:10px 0}
+.field label{display:block;font-size:11.5px;color:var(--tx-3);margin-bottom:5px;font-weight:500}
+.field .box{height:40px;border:1px solid var(--bd);border-radius:8px;background:var(--surface);display:flex;align-items:center;padding:0 12px;font-family:var(--mono);font-size:13px;color:var(--tx-3);overflow:hidden;white-space:nowrap}
+.field .box.filled{border-color:var(--p);background:var(--p-50);color:var(--tx)}
+.field .box .cursor{width:1.5px;height:17px;background:var(--p);margin-left:1px;animation:blink 1s step-end infinite}
+@keyframes blink{50%{opacity:0}}
+.tag{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:700;padding:3px 9px;border-radius:9999px}
+.tag.fw{background:rgba(0,210,211,.14);color:#068a8b}
+@media(prefers-color-scheme:dark){.tag.fw{color:#22d3d4}}
+.frameworks{display:flex;gap:7px;flex-wrap:wrap;margin-top:16px}
+
+/* coverage form (step 3) */
+.pform .crow{display:flex;align-items:center;gap:10px;background:var(--surface);border:1px solid var(--bd);border-radius:9px;padding:11px 12px;margin:8px 0}
+.pform .crow input{width:17px;height:17px;accent-color:var(--p);flex:none}
+.pform .crow span{font-size:14px;color:var(--tx);font-weight:600}
+.pform .crow small{margin-left:auto;font-size:12px;color:var(--tx-3)}
+.saved{display:none;align-items:center;gap:9px;color:var(--ok);font-weight:600;font-size:14px;margin-top:14px}
+.saved.show{display:flex}
+.chk{width:22px;height:22px;border-radius:50%;background:var(--ok);color:#fff;display:grid;place-items:center;font-size:13px}
+
+/* trust (step 4) */
+.trust{display:flex;flex-direction:column;gap:12px}
+.trow{display:flex;gap:13px;align-items:flex-start}
+.tico{flex:none;width:38px;height:38px;border-radius:10px;background:var(--p-50);color:var(--p);display:grid;place-items:center;font-size:17px}
+.trow h4{font-size:14.5px;font-weight:700;margin-bottom:1px}
+.trow p{font-size:13px;color:var(--tx-2)}
+.trow p a{font-size:13px}
+.stats{display:flex;gap:26px;margin:22px 0 2px}
+.stats div{display:flex;flex-direction:column}
+.stats b{font-size:25px;font-weight:800;letter-spacing:-.02em;font-variant-numeric:tabular-nums;color:var(--tx);line-height:1.1}
+.stats span{font-size:11.5px;color:var(--tx-3);margin-top:2px}
+.morelinks{display:flex;gap:16px;flex-wrap:wrap;margin-top:14px;font-size:13px}
+
+/* pricing (step 5) */
+.plans{display:grid;grid-template-columns:1fr 1.25fr;gap:16px}
+@media(max-width:820px){.plans{grid-template-columns:1fr}}
+.plan{border:1px solid var(--bd);border-radius:16px;padding:22px;background:var(--stage);position:relative}
+.plan.hero{border:2px solid var(--gold);box-shadow:var(--shadow-lg)}
+.plan .pn{font-size:13px;font-weight:700;color:var(--tx-2);text-transform:uppercase;letter-spacing:.06em}
+.price{font-size:44px;font-weight:800;letter-spacing:-.03em;font-variant-numeric:tabular-nums;margin:8px 0 2px}
+.price small{font-size:15px;font-weight:600;color:var(--tx-3)}
+.plan ul{list-style:none;margin:16px 0 0;display:flex;flex-direction:column;gap:9px}
+.plan li{font-size:13.5px;padding-left:24px;position:relative;color:var(--tx-2)}
+.plan li::before{content:"";position:absolute;left:0;top:5px;width:15px;height:15px;border-radius:50%;background:var(--ok);opacity:.16}
+.plan li::after{content:"";position:absolute;left:5px;top:6px;width:4px;height:8px;border:solid var(--ok);border-width:0 2px 2px 0;transform:rotate(45deg)}
+.ribbon{position:absolute;top:-11px;right:18px;background:var(--gold);color:var(--on-gold);font-size:11px;font-weight:800;padding:3px 11px;border-radius:9999px;letter-spacing:.02em}
+.guar{font-size:12.5px;color:var(--tx-3);margin-top:14px;text-align:center}
+
+/* close (step 6) */
+.cheat{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.cheat .row{display:flex;justify-content:space-between;align-items:center;background:var(--surface);border:1px solid var(--bd);border-radius:9px;padding:9px 12px}
+.cheat .row span{font-size:13px;color:var(--tx-2)}
+.sign{margin-top:18px;padding:16px 18px;background:var(--surface);border:1px solid var(--bd);border-radius:13px;font-size:14px;color:var(--tx-2)}
+.sign b{color:var(--tx)}
+
+/* nav */
+.nav{display:flex;align-items:center;gap:12px;margin-top:30px}
+.btn{font-family:inherit;font-size:15px;font-weight:600;border-radius:10px;padding:13px 24px;cursor:pointer;border:1px solid transparent;transition:transform .12s,box-shadow .2s,background .2s}
+.btn:active{transform:translateY(1px)}
+.btn:focus-visible{outline:none;box-shadow:0 0 0 3px var(--p-50),0 0 0 5px var(--p)}
+.btn--primary{background:var(--p);color:#fff}.btn--primary:hover{background:var(--p-dark)}
+.btn--pro{background:linear-gradient(145deg,var(--gold),var(--gold-dark));color:var(--on-gold);box-shadow:0 8px 20px -6px rgba(245,158,11,.55)}
+.btn--pro:hover{filter:brightness(1.04)}
+.btn--ghost{background:transparent;color:var(--tx-2);border-color:var(--bd)}.btn--ghost:hover{color:var(--tx);border-color:var(--tx-3)}
+.spacer{flex:1}
+.stepno{font-size:12.5px;color:var(--tx-3);font-variant-numeric:tabular-nums}
+a{color:var(--p);text-decoration:none;font-weight:600}a:hover{text-decoration:underline}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style></head><body>
+<div class="wrap">
+  <div class="top">
+    <div class="mark">S</div>
+    <div class="brand">ScamRows <span>· by Zovo</span></div>
+    <div class="rail" id="rail" aria-hidden="true"></div>
+    <button class="skip" id="skip">Skip intro</button>
+  </div>
+
+  <div class="stage">
+    <!-- 1 · PROBLEM -->
+    <section class="step on" data-step="0">
+      <div class="grid">
+        <div>
+          <div class="eyebrow">The rows that were never yours</div>
+          <h1>Your wallet history is full of transfers you never made.</h1>
+          <p class="lede wide">Scam airdrops. Dust spam. "Visit this site to claim your reward" poison tokens. Every busy address page on every explorer collects them, and the real history drowns between them.</p>
+          <p class="pt">Built for anyone who reads their own transactions. Traders, airdrop hunters, bookkeepers, the curious.</p>
+        </div>
+        <div class="visual">
+          <div class="mockhd"><i></i><i></i><i></i></div>
+          <div class="field"><label>Token transfers, before ScamRows</label><div class="box">Claim-ETH.net Airdrop · 0x4f3a…</div></div>
+          <div class="field"><div class="box">Visit uniswap-voucher.com · 0x91bc…</div></div>
+          <div class="field"><div class="box">0.000001 USDT dust · 0x77d0…</div></div>
+          <div class="field"><div class="box">USDT Rewards, claim now · 0xa2e8…</div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2 · INSTANT WIN -->
+    <section class="step" data-step="1">
+      <div class="grid">
+        <div>
+          <div class="eyebrow">Already done</div>
+          <h1>Open an address page. ScamRows hides the poison.</h1>
+          <p class="lede wide">No setup, no account, no list to maintain. ScamRows reads the transfer table as the explorer renders it and hides every row that matches its scam patterns. A small pill says how many, and Show brings any of them back.</p>
+          <button class="btn btn--ghost" id="demoBtn" style="margin-top:18px">Watch the spam arrive</button>
+        </div>
+        <div class="visual">
+          <div class="mockhd"><i></i><i></i><i></i></div>
+          <div class="field"><label>What lands in a wallet history</label><div class="box" data-fill="Visit claim-eth.net to claim">&nbsp;</div></div>
+          <div class="field"><div class="box" data-fill="USDT Rewards Voucher">&nbsp;</div></div>
+          <div class="field"><div class="box" data-fill="arbitrum-airdrop.info">&nbsp;</div></div>
+          <div class="field"><div class="box" data-fill="Free Uniswap V3 Voucher">&nbsp;</div></div>
+          <div class="frameworks">
+            <span class="tag fw">4 poison rows</span><span class="tag fw">hidden on sight</span><span class="tag fw">real transfers untouched</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3 · INVESTMENT -->
+    <section class="step" data-step="2">
+      <div class="grid">
+        <div>
+          <div class="eyebrow">One tap, once</div>
+          <h1>One install keeps all five explorers clean.</h1>
+          <p class="lede wide">Etherscan, BaseScan, Arbiscan, BscScan and PolygonScan all start switched on. Save to lock in your coverage, or uncheck a chain you never touch. Everything can change later in Options.</p>
+          <p class="pt">Your choice stays in this browser. Nothing is sent anywhere, so it works on a plane.</p>
+        </div>
+        <div class="visual">
+          <form class="pform" id="pform" onsubmit="return false">
+            <label class="crow"><input type="checkbox" class="explchk" id="expchk-etherscan" data-family="etherscan" aria-label="Hide scam rows on Etherscan, including Sepolia" checked><span>Etherscan</span><small>incl. Sepolia</small></label>
+            <label class="crow"><input type="checkbox" class="explchk" id="expchk-basescan" data-family="basescan" aria-label="Hide scam rows on BaseScan, including Sepolia" checked><span>BaseScan</span><small>incl. Sepolia</small></label>
+            <label class="crow"><input type="checkbox" class="explchk" id="expchk-arbiscan" data-family="arbiscan" aria-label="Hide scam rows on Arbiscan, including Sepolia" checked><span>Arbiscan</span><small>incl. Sepolia</small></label>
+            <label class="crow"><input type="checkbox" class="explchk" id="expchk-bscscan" data-family="bscscan" aria-label="Hide scam rows on BscScan, including testnet" checked><span>BscScan</span><small>incl. testnet</small></label>
+            <label class="crow"><input type="checkbox" class="explchk" id="expchk-polygonscan" data-family="polygonscan" aria-label="Hide scam rows on PolygonScan, including Amoy" checked><span>PolygonScan</span><small>incl. Amoy</small></label>
+            <button class="btn btn--primary" id="saveBtn" style="margin-top:14px;width:100%">Save my coverage</button>
+            <div class="saved" id="saved"><span class="chk"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 6"/></svg></span> Saved. Every explorer you checked is covered.</div>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4 · TRUST -->
+    <section class="step" data-step="3">
+      <div class="grid">
+        <div>
+          <div class="eyebrow">Why you can let it read your history</div>
+          <h1>It never sends anything anywhere, because it can't.</h1>
+          <p class="lede wide">ScamRows has no server, no account and no analytics. The scam list ships inside the extension, the matching happens right in the page, and the permission list is one word. Storage.</p>
+          <div class="stats">
+            <div><b>MV3</b><span>modern, sandboxed, no remote code</span></div>
+            <div><b>0</b><span>network calls, ever, even on Pro</span></div>
+            <div><b>100%</b><span>open source on GitHub, MIT licensed</span></div>
+          </div>
+          <p class="pt">ScamRows is where you meet Zovo. The bigger idea is an honest layer for the whole extension world, one tool at a time, no SEO spam and no tracking.</p>
+          <div class="morelinks">
+            <a href="https://zovo.one/why?ref=scamrows" target="_blank" rel="noopener">Why I build Zovo</a>
+            <a href="https://zovo.one/vision?ref=scamrows" target="_blank" rel="noopener">The vision</a>
+            <a href="https://zovo.one/how-we-keep-you-safe?ref=scamrows" target="_blank" rel="noopener">How we keep you safe</a>
+          </div>
+        </div>
+        <div class="visual">
+          <div class="trust">
+            <div class="trow"><div class="tico"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v5c0 4.5-3 8-7 10-4-2-7-5.5-7-10V6z"/><path d="M9 12l2 2 4-4"/></svg></div><div><h4>It hides rows with one permission, on purpose</h4><p>Storage. That is the whole list. No tabs, no browsing history, no access to every website, nothing phoning home.</p></div></div>
+            <div class="trow"><div class="tico"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 4-6 8-6s8 2 8 6"/></svg></div><div><h4>One person keeps building in the open</h4><p>Not a faceless company. A developer who ships in public, uses these tools daily, and answers you directly at <a href="https://github.com/theluckystrike" target="_blank" rel="noopener">github.com/theluckystrike</a>.</p></div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5 · OFFER -->
+    <section class="step" data-step="4">
+      <div style="text-align:center;max-width:620px;margin:0 auto 22px">
+        <div class="eyebrow" style="text-align:center">The honest trade</div>
+        <h1 style="font-size:34px">Free hides the poison. Pro catches the dust.</h1>
+        <p class="lede wide" style="margin:0 auto">Known-scam hiding and the claim-link detector stay free on all five explorers, forever. One payment of ninety-nine dollars unlocks the dust filter, your own blocklist, and every Pro feature in this extension.</p>
+      </div>
+      <div class="plans">
+        <div class="plan" data-tier="free">
+          <div class="pn">Free</div>
+          <div class="price">$0<small> forever</small></div>
+          <ul>
+            <li>Known-scam blocklist hiding</li>
+            <li>Claim-link and bait-word detector</li>
+            <li>All five explorers covered</li>
+            <li>One-click reveal with reasons</li>
+          </ul>
+        </div>
+        <div class="plan hero" data-tier="pro">
+          <div class="ribbon">Best value</div>
+          <div class="pn" style="color:var(--gold-dark)">Lifetime</div>
+          <div class="price">$99<small> one time</small></div>
+          <ul>
+            <li>Zero-value and dust filter with your threshold</li>
+            <li>Your own blocklist of contract addresses</li>
+            <li>Never-hide list for false positives</li>
+            <li>Homoglyph impersonation flag</li>
+            <li>One payment, never a subscription</li>
+          </ul>
+          <a class="btn btn--pro" href="https://zovo.one/pricing?utm_source=scamrows&utm_medium=extension&utm_campaign=upgrade&utm_content=onboarding" target="_blank" rel="noopener" style="display:block;text-align:center;margin-top:18px">Get lifetime for $99</a>
+          <p class="guar">14-day refund, no questions. Prefer monthly? It's $4.99 on the same page.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 6 · CLOSE -->
+    <section class="step" data-step="5">
+      <div class="grid">
+        <div>
+          <div class="eyebrow">You're set</div>
+          <h1>Reclaim your history. It was always yours.</h1>
+          <p class="lede wide">Browse any address page on a covered explorer. If the pill says rows were hidden, that was the point. Everything worth knowing fits on this card.</p>
+          <div class="sign">
+            <h4 style="font-size:13px;margin-bottom:7px;color:var(--tx)">The developer keeps watch</h4>
+            I build Zovo on my own, in the open. If a real transfer ever disappears, one click brings it back, and Pro lets you never-hide that token forever. If something breaks, write to me and I answer.
+            <div class="morelinks" style="margin-top:13px">
+              <a href="https://github.com/theluckystrike" target="_blank" rel="noopener">Reach me on GitHub</a>
+              <a href="https://zovo.one/vision?ref=scamrows" target="_blank" rel="noopener">Where this is going</a>
+            </div>
+          </div>
+        </div>
+        <div class="visual">
+          <div class="cheat">
+            <div class="row"><span>Rows hidden on a page</span><span class="kbd">Pill</span></div>
+            <div class="row"><span>Bring a row back</span><span class="kbd">Show</span></div>
+            <div class="row"><span>Why a row hid</span><span class="kbd">Hover</span></div>
+            <div class="row"><span>Pause a chain</span><span class="kbd">Popup</span></div>
+          </div>
+          <p class="pt" style="margin-top:16px">Pro pays for more than dust. The same $99 supports the Zovo studio and every honest tool it ships next. <a href="https://zovo.one?ref=scamrows" target="_blank" rel="noopener">See what's included</a>.</p>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <div class="nav">
+    <button class="btn btn--ghost" id="back" style="visibility:hidden">Back</button>
+    <span class="stepno" id="stepno">1 of 6</span>
+    <span class="spacer"></span>
+    <button class="btn btn--primary" id="next">Keep going</button>
+  </div>
+</div>
+
+<script src="onboarding.js" defer></script>
+</body></html>

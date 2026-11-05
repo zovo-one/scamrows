@@ -1,0 +1,57 @@
+/* ============================================================================
+ * popup.css - ScamRows toolbar popup (SURFACE-owned)
+ * ----------------------------------------------------------------------------
+ * Page layout on top of zovo-base.css + zovo-pages.css. Tokens only; the
+ * identity stamp hue-rotates with the base. Width and max height come from
+ * the base .zovo-popup helper (360px / 560px, fleet standard).
+ * ========================================================================== */
+
+.zovo-pop { background: var(--zovo-surface); }
+
+.zovo-pop__stack { padding-top: var(--zovo-space-4); }
+
+/* ---- Header ---------------------------------------------------------------- */
+.zovo-pop__head { padding: var(--zovo-space-4) var(--zovo-space-5) 0; border-bottom: 0; }
+.zovo-pop__head .zovo-badge { margin-left: auto; }
+
+/* ---- Hero (the one elevated element) --------------------------------------- */
+.zovo-pop__hero { padding: 0; }
+.zovo-pop__hero .zovo-hero { padding: var(--zovo-space-6) var(--zovo-space-5); }
+.zovo-pop__hero .zovo-hero__sub { margin-bottom: 0; }
+
+/* ---- Site-access warning ---------------------------------------------------- */
+.zovo-pop__access { margin: 0; }
+
+/* ---- Master + explorers cards ------------------------------------------------ */
+.zovo-pop__master,
+.zovo-pop__explorers { padding: var(--zovo-space-3) var(--zovo-space-4); }
+.zovo-pop__master {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--zovo-space-3);
+  min-height: 44px;
+}
+.zovo-pop__explorers .zovo-eyebrow { margin-bottom: 0; }
+.zovo-pop__explorers .zovo-optrow { padding: var(--zovo-space-2) 0; }
+
+/* ---- Pro peek card ------------------------------------------------------------ */
+.zovo-pop__pro {
+  display: flex;
+  flex-direction: column;
+  gap: var(--zovo-space-2);
+  padding: var(--zovo-space-4);
+  border-color: var(--zovo-pro);
+}
+.zovo-pop__pro .zovo-eyebrow { margin-bottom: 0; }
+.zovo-pop__pro .zovo-prorow { margin: 0 calc(-1 * var(--zovo-space-3)); width: calc(100% + 2 * var(--zovo-space-3)); }
+.zovo-pop__upgrade { margin-top: var(--zovo-space-2); }
+
+/* ---- Footer ------------------------------------------------------------------- */
+.zovo-pop__foot { padding-bottom: var(--zovo-space-4); }
+.zovo-pop__footlinks {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--zovo-space-3);
+}
+.zovo-pop__brand { font-weight: var(--zovo-fw-heading); }

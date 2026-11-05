@@ -1,0 +1,258 @@
+/* ============================================================================
+ * zovo-pages.css - ScamRows shared page components (SURFACE-owned)
+ * ----------------------------------------------------------------------------
+ * Components both extension pages need that zovo-base.css does not define:
+ * the toggle switch, small/inline button sizes, the Pro nudge, locked Pro
+ * rows, options rows, removable lists, and plain links. Loaded after
+ * zovo-base.css and before the page stylesheet on popup and options.
+ *
+ * Every color, radius, shadow, and motion value comes from the --zovo-*
+ * tokens so the Phase 5 identity stamp (zovo- -> ns rewrite + hue rotation)
+ * transforms this file together with the base. Dark mode is inherited from
+ * the token swap in zovo-base.css; no page component hard-codes a surface.
+ * ========================================================================== */
+
+/* ---- Hidden guard ------------------------------------------------------------ */
+/* Author display rules (flex rows, nudges, alerts, veils) must never resurrect
+ * a node marked hidden; BUILDER toggles visibility via the hidden attribute. */
+.zovo [hidden] { display: none !important; }
+
+/* ---- Plain link ------------------------------------------------------------ */
+.zovo-link {
+  color: var(--zovo-primary);
+  text-decoration: none;
+  cursor: pointer;
+}
+.zovo-link:hover { text-decoration: underline; }
+.zovo-link:focus-visible {
+  outline: 2px solid var(--zovo-primary);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+/* ---- Button size variants (base ships one 40px size) ----------------------- */
+.zovo-btn--sm {
+  min-height: 32px;
+  padding: 6px 12px;
+  font-size: var(--zovo-fs-caption);
+}
+.zovo-btn--inline {
+  min-height: 0;
+  padding: 0;
+  font-size: inherit;
+  font-weight: var(--zovo-fw-medium);
+}
+a.zovo-btn { text-decoration: none; }
+
+/* ---- Toggle switch --------------------------------------------------------- */
+/* Pattern: visually-hidden checkbox + track span (sibling selector drives the
+ * visual state, so the input keeps native keyboard and screen-reader behavior
+ * and role="switch" announces correctly). */
+.zovo-switch {
+  position: relative;
+  display: inline-flex;
+  flex: none;
+  width: 40px;
+  height: 24px;
+}
+.zovo-switch__input {
+  position: absolute;
+  inset: 0;
+  margin: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+.zovo-switch__track {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: var(--zovo-radius-pill);
+  background: var(--zovo-border);
+  transition: background var(--zovo-transition);
+  pointer-events: none;
+}
+.zovo-switch__track::after {
+  content: "";
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--zovo-bg);
+  box-shadow: var(--zovo-shadow-sm);
+  transition: transform var(--zovo-transition);
+}
+.zovo-switch__input:checked + .zovo-switch__track {
+  background: var(--zovo-primary);
+}
+.zovo-switch__input:checked + .zovo-switch__track::after {
+  transform: translateX(16px);
+}
+.zovo-switch__input:focus-visible + .zovo-switch__track {
+  box-shadow: 0 0 0 2px var(--zovo-bg), 0 0 0 4px var(--zovo-primary);
+}
+.zovo-switch__input:disabled { cursor: not-allowed; }
+.zovo-switch__input:disabled + .zovo-switch__track { opacity: 0.55; }
+
+/* ---- Options / settings row ------------------------------------------------ */
+.zovo-optrow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--zovo-space-3);
+  min-height: 44px;
+  padding: var(--zovo-space-3) 0;
+}
+.zovo-optrow + .zovo-optrow { border-top: 1px solid var(--zovo-border); }
+.zovo-optrow--top { align-items: flex-start; }
+.zovo-optrow__label {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.zovo-optrow__hint {
+  font-size: var(--zovo-fs-caption);
+  color: var(--zovo-text-secondary);
+}
+.zovo-optrow__control {
+  display: flex;
+  align-items: center;
+  gap: var(--zovo-space-2);
+  flex: none;
+}
+
+/* ---- Pro nudge (revealed when a free user touches a locked control) -------- */
+.zovo-nudge {
+  display: flex;
+  flex-direction: column;
+  gap: var(--zovo-space-2);
+  margin-top: var(--zovo-space-3);
+  padding: 10px 12px;
+  background: var(--zovo-bg);
+  border: 1px solid var(--zovo-border);
+  border-left: 3px solid var(--zovo-pro);
+  border-radius: var(--zovo-radius-btn);
+}
+.zovo-nudge__text {
+  margin: 0;
+  font-size: var(--zovo-fs-body);
+}
+.zovo-nudge__actions {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--zovo-space-2);
+}
+
+/* ---- Locked Pro row (locked but visible; click reveals the nudge) ---------- */
+.zovo-prorow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--zovo-space-3);
+  width: 100%;
+  min-height: 44px;
+  padding: var(--zovo-space-2) var(--zovo-space-3);
+  font-family: inherit;
+  font-size: var(--zovo-fs-body);
+  text-align: left;
+  color: var(--zovo-text);
+  background: transparent;
+  border: 0;
+  border-radius: var(--zovo-radius-btn);
+  cursor: pointer;
+  transition: background var(--zovo-transition);
+}
+.zovo-prorow:hover { background: var(--zovo-primary-50); }
+.zovo-prorow:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px var(--zovo-bg), 0 0 0 4px var(--zovo-primary);
+}
+.zovo-prorow + .zovo-prorow { margin-top: 2px; }
+.zovo-prorow__label {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.zovo-prorow__hint {
+  font-size: var(--zovo-fs-caption);
+  color: var(--zovo-text-secondary);
+}
+.zovo-prorow__lock { flex: none; }
+
+/* ---- Removable list (never-hide entries; BUILDER clones the template) ------ */
+.zovo-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+}
+.zovo-list__row {
+  display: flex;
+  align-items: center;
+  gap: var(--zovo-space-2);
+  min-height: 40px;
+  padding: var(--zovo-space-2) 0;
+  border-top: 1px solid var(--zovo-border);
+}
+.zovo-list__row:first-child { border-top: 0; }
+.zovo-list__addr {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-family: var(--zovo-font-mono);
+  font-size: var(--zovo-fs-caption);
+}
+
+/* ---- Tight empty state (inside sections, not full screens) ----------------- */
+.zovo-empty--tight { padding: var(--zovo-space-4) var(--zovo-space-3); }
+.zovo-empty--tight .zovo-empty__text {
+  margin-top: 0;
+  font-size: var(--zovo-fs-caption);
+}
+
+/* ---- Inline form row (input + button) -------------------------------------- */
+.zovo-formrow {
+  display: flex;
+  gap: var(--zovo-space-2);
+  align-items: stretch;
+}
+.zovo-formrow .zovo-input { flex: 1; min-width: 0; }
+.zovo-formrow .zovo-btn { flex: none; }
+
+/* ---- Form status line ------------------------------------------------------- */
+.zovo-formstatus {
+  margin: var(--zovo-space-2) 0 0;
+  min-height: 18px;
+  font-size: var(--zovo-fs-caption);
+  color: var(--zovo-text-secondary);
+}
+.zovo-formstatus[data-tone='ok'] { color: var(--zovo-success); }
+.zovo-formstatus[data-tone='error'] { color: var(--zovo-error); }
+
+/* ---- Textarea --------------------------------------------------------------- */
+.zovo-textarea {
+  width: 100%;
+  padding: 8px 10px;
+  font-family: var(--zovo-font-mono);
+  font-size: var(--zovo-fs-caption);
+  line-height: 1.6;
+  color: var(--zovo-text);
+  background: var(--zovo-surface);
+  border: 1px solid var(--zovo-border);
+  border-radius: var(--zovo-radius-input);
+  resize: vertical;
+  transition: border-color var(--zovo-transition), box-shadow var(--zovo-transition);
+}
+.zovo-textarea:focus-visible {
+  outline: none;
+  border-color: var(--zovo-primary);
+  box-shadow: 0 0 0 3px var(--zovo-primary-50);
+}

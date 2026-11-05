@@ -1,0 +1,245 @@
+/* ============================================================================
+ * options.css - ScamRows options page (SURFACE-owned)
+ * ----------------------------------------------------------------------------
+ * Full-tab layout on top of zovo-base.css + zovo-pages.css: sticky nav,
+ * two-column grid (settings main column + house sidebar), section rhythm,
+ * the veiled lifetime-stat hero, and the gradient Pro sidebar card. Tokens
+ * only, so the identity stamp and dark mode come along with the base.
+ * ========================================================================== */
+
+.zovo-opt {
+  min-height: 100vh;
+  background: var(--zovo-surface);
+}
+
+/* ---- Sticky nav ------------------------------------------------------------- */
+.zovo-opt__nav {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  gap: var(--zovo-space-2);
+  padding: var(--zovo-space-3) var(--zovo-space-6);
+  background: var(--zovo-bg);
+}
+.zovo-opt__nav .zovo-badge { margin-left: auto; }
+
+/* ---- Grid ------------------------------------------------------------------- */
+.zovo-opt__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 320px;
+  gap: var(--zovo-space-6);
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: var(--zovo-space-6);
+}
+@media (max-width: 900px) {
+  .zovo-opt__grid { grid-template-columns: minmax(0, 1fr); }
+}
+
+.zovo-opt__main {
+  display: flex;
+  flex-direction: column;
+  gap: var(--zovo-space-4);
+  min-width: 0;
+}
+
+/* ---- Sections ----------------------------------------------------------------- */
+.zovo-opt__section { padding: var(--zovo-space-5) var(--zovo-space-6); }
+.zovo-opt__title {
+  display: flex;
+  align-items: center;
+  gap: var(--zovo-space-2);
+  margin: 0 0 var(--zovo-space-3);
+  font-size: var(--zovo-fs-heading);
+  font-weight: var(--zovo-fw-heading);
+  letter-spacing: -0.01em;
+}
+.zovo-opt__sub {
+  margin: calc(-1 * var(--zovo-space-1)) 0 var(--zovo-space-3);
+  font-size: var(--zovo-fs-caption);
+}
+.zovo-opt__fine {
+  margin: var(--zovo-space-2) 0 0;
+  font-size: var(--zovo-fs-caption);
+}
+.zovo-opt__actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: var(--zovo-space-3);
+}
+.zovo-opt__addform { margin-top: var(--zovo-space-3); }
+.zovo-opt__num { max-width: 140px; text-align: right; }
+
+/* ---- Lifetime-stats hero with the free-tier veil ------------------------------ */
+.zovo-opt__stats .zovo-hero { padding: var(--zovo-space-6) var(--zovo-space-5); }
+.zovo-opt__hero { position: relative; }
+
+/* Locked Pro controls let clicks fall THROUGH to the section gate, so a tap
+   directly on a disabled switch/field/button reveals the section nudge instead
+   of dying silently — Chrome never dispatches click events from disabled form
+   controls, so without this the gate only fires on clicks around the control.
+   [disabled] drops at Pro and the controls turn interactive again. */
+.zovo-opt__section :is(input, textarea, button)[disabled] {
+  pointer-events: none;
+}
+.zovo-opt__veil {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--zovo-space-3);
+  padding: var(--zovo-space-4);
+  text-align: center;
+  background: color-mix(in srgb, var(--zovo-bg) 82%, transparent);
+  backdrop-filter: blur(3px);
+  border-radius: var(--zovo-radius-card);
+}
+.zovo-opt__veiltext {
+  margin: 0;
+  font-size: var(--zovo-fs-body);
+  color: var(--zovo-text);
+}
+
+/* ---- Sidebar -------------------------------------------------------------------- */
+.zovo-sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: var(--zovo-space-4);
+  position: sticky;
+  top: calc(61px + var(--zovo-space-6));
+}
+@media (max-width: 900px) {
+  .zovo-sidebar { position: static; }
+}
+
+/* Pro card: brand gradient with white text; the gold CTA carries dark text
+   (white on gold fails WCAG AA, so the CTA mixes the pro token toward black
+   instead of using --zovo-on-pro). */
+.zovo-sidebar__pro {
+  display: flex;
+  flex-direction: column;
+  gap: var(--zovo-space-2);
+  padding: var(--zovo-space-5);
+  border-radius: var(--zovo-radius-card);
+  background: linear-gradient(150deg, var(--zovo-primary) 0%, var(--zovo-primary-dark) 100%);
+  color: #ffffff;
+  box-shadow: var(--zovo-shadow);
+}
+.zovo-sidebar__proeyebrow {
+  margin: 0;
+  font-size: 11px;
+  font-weight: var(--zovo-fw-heading);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #dcdcff;
+}
+.zovo-sidebar__prohead {
+  margin: 0;
+  font-size: var(--zovo-fs-subheading);
+  font-weight: var(--zovo-fw-heading);
+  letter-spacing: -0.01em;
+  color: #ffffff;
+}
+.zovo-sidebar__prolist {
+  margin: 0 0 var(--zovo-space-2);
+  padding: 0 0 0 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: var(--zovo-fs-caption);
+  color: #eeeefb;
+}
+.zovo-sidebar__prolist li::marker { color: var(--zovo-pro); }
+
+.zovo-sidebar__cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 40px;
+  padding: 10px 16px;
+  font-family: inherit;
+  font-size: var(--zovo-fs-body);
+  font-weight: var(--zovo-fw-heading);
+  text-decoration: none;
+  color: color-mix(in srgb, var(--zovo-pro) 22%, #000000);
+  background: var(--zovo-pro);
+  border: 0;
+  border-radius: var(--zovo-radius-btn);
+  cursor: pointer;
+  transition: background var(--zovo-transition), transform var(--zovo-transition);
+}
+.zovo-sidebar__cta:hover { background: var(--zovo-pro-dark); }
+.zovo-sidebar__cta:active { transform: translateY(1px); }
+.zovo-sidebar__cta:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px var(--zovo-primary-dark), 0 0 0 4px #ffffff;
+}
+
+.zovo-sidebar__guarantee {
+  margin: 0;
+  font-size: 11px;
+  line-height: 1.45;
+  color: #dcdcff;
+}
+.zovo-sidebar__manage {
+  color: #ffffff;
+  font-weight: var(--zovo-fw-medium);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.zovo-sidebar__manage:hover { color: var(--zovo-primary-50); }
+.zovo-sidebar__manage:focus-visible {
+  outline: 2px solid #ffffff;
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+/* Privacy card */
+.zovo-sidebar__card {
+  padding: var(--zovo-space-4) var(--zovo-space-5);
+  background: var(--zovo-bg);
+  border: 1px solid var(--zovo-border);
+  border-radius: var(--zovo-radius-card);
+}
+.zovo-sidebar__cardtitle {
+  margin: 0 0 var(--zovo-space-1);
+  font-size: var(--zovo-fs-caption);
+  font-weight: var(--zovo-fw-heading);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--zovo-text);
+}
+.zovo-sidebar__cardtext {
+  margin: 0 0 var(--zovo-space-2);
+  font-size: var(--zovo-fs-caption);
+  color: var(--zovo-text-secondary);
+}
+
+/* Sidebar footer: visible house-domain brand link (fleet compliance) */
+.zovo-sidebar__foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--zovo-space-2);
+  margin: 0;
+  padding: 0 var(--zovo-space-1);
+  font-size: var(--zovo-fs-caption);
+}
+.zovo-sidebar__footlinks {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--zovo-space-3);
+}
+.zovo-sidebar__footlinks a {
+  color: var(--zovo-primary);
+  text-decoration: none;
+}
+.zovo-sidebar__footlinks a:hover { text-decoration: underline; }
+.zovo-sidebar__footlinks a:focus-visible {
+  outline: 2px solid var(--zovo-primary);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+.zovo-sidebar__brand { font-weight: var(--zovo-fw-heading); }
